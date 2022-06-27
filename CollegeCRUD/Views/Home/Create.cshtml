@@ -1,0 +1,95 @@
+﻿@model ERP.models.Student
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+@ViewBag.Success
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+ 
+    <h4>Student</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Fname, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        @Html.LabelFor(model => model.MiddleName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.MiddleName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        @Html.LabelFor(model => model.DOB, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        @Html.DropDownListFor(model => model.genderid, new SelectList(ViewBag.datas, "id","Name"))
+    </div>
+
+    @*<div class="form-group">
+        @@Html.LabelFor(model => model.Gender, htmlAttributes: new { @@class = "control-label col-md-2" })
+        <div class="col-md-10">
+    @Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+            </div>
+        <br />*@
+    @*<select class="form-select" name="Gender">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+
+        <br />
+    <div class="form-group">
+        @Html.LabelFor(model => model.Status, htmlAttributes: new {@class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input class="form-check-input" type="radio" name="Status" id="flexRadioDefault1">
+            <label class="form-check-label" for="flexRadioDefault1">
+                Inactive
+            </label>
+    @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+    </div>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="Status" id="flexRadioDefault2" checked>
+        <label class="form-check-label" for="flexRadioDefault2">
+            Active
+        </label>
+    </div>
+    <br />*@
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-outline-dark" />
+        </div>
+    </div>
+@*</div>*@
+}
+<br />
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

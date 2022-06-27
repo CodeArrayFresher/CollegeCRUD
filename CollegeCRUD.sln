@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32602.215
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollegeCRUD", "CollegeCRUD\CollegeCRUD.csproj", "{544E64C1-8F8F-43E9-A257-C0AEE7B47E96}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ERP.DB", "ERP.DB\ERP.DB.csproj", "{2E9D6C3B-BE3A-431C-9068-1AC5812627AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ERP.models", "ERP.models\ERP.models.csproj", "{1295EA76-48DC-4BF6-ABCA-06B73E426217}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{544E64C1-8F8F-43E9-A257-C0AEE7B47E96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{544E64C1-8F8F-43E9-A257-C0AEE7B47E96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{544E64C1-8F8F-43E9-A257-C0AEE7B47E96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{544E64C1-8F8F-43E9-A257-C0AEE7B47E96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E9D6C3B-BE3A-431C-9068-1AC5812627AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E9D6C3B-BE3A-431C-9068-1AC5812627AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E9D6C3B-BE3A-431C-9068-1AC5812627AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E9D6C3B-BE3A-431C-9068-1AC5812627AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1295EA76-48DC-4BF6-ABCA-06B73E426217}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1295EA76-48DC-4BF6-ABCA-06B73E426217}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1295EA76-48DC-4BF6-ABCA-06B73E426217}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1295EA76-48DC-4BF6-ABCA-06B73E426217}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {338E2DD2-26D3-4DF0-8C32-8BEA85775B16}
+	EndGlobalSection
+EndGlobal
