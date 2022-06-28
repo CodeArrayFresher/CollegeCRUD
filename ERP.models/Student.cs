@@ -25,7 +25,11 @@ namespace ERP.models
 
         public int genderid { get; set; }
 
+       public Gender gender { get; set; }
+
         public int StatusId { get; set; }
+
+        public Status status { get; set; }
         //public string Status { get; set; }
         public List<Gender> Genders { get; set; }
         

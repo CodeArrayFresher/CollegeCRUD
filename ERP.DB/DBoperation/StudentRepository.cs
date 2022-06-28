@@ -97,5 +97,32 @@ namespace ERP.DB.DBoperation
                 return status;
             }
         }
+
+        public List<Student> GetAllStudents()
+        {
+            using (var context = new StudentDBEntities1())
+
+            {
+                var res = context.StudentDetails.Select(x => new Student()
+                {
+                    Id = x.Id,
+                    Fname = x.Fname,
+                    MiddleName = x.MiddleName,
+                    LastName = x.LastName,
+                    DOB = (DateTime)x.DOB,
+                    gender = new models.Gender()
+                    {
+                        Name = x.Gender.Name,
+                    },
+                    status = new models.Status()
+                    {
+                        Name = x.Status.Name
+                    }
+
+                }
+                ).DefaultIfEmpty().ToList();
+                return res;
+            }
+        }
     }
 }

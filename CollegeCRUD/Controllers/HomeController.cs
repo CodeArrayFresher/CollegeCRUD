@@ -45,9 +45,10 @@ namespace CollegeCRUD.Controllers
 
 
 
-        public ActionResult Index()
+        public ActionResult GetAllRecords()
         {
-            return View();
+            var result = repository.GetAllStudents();
+            return View(result);
         }
     }
 }
