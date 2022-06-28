@@ -23,9 +23,13 @@ namespace ERP.models
         public System.DateTime DOB { get; set; }
         //public int MyProperty { get; set; }
 
-        public int genderid { get; set; }   
-        public string Status { get; set; }
+        public int genderid { get; set; }
+
+        public int StatusId { get; set; }
+        //public string Status { get; set; }
         public List<Gender> Genders { get; set; }
-        public Gender Gender { get; set; }
+        
+        public List<Status> Statuss { get; set; }
+        //public gender gender { get; set; }
     }
 }

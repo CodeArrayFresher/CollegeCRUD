@@ -21,9 +21,11 @@ namespace CollegeCRUD.Controllers
         {
             var model = new Student();
             model.Genders = repository.GetGenders();
+            model.Statuss = repository.GetStatuses();
+            //ViewBag.Status = model.Statuss;
             //model.Fname = "Abhishek";
-            ViewBag.datas = model.Genders;
-            return View();
+            //ViewBag.gender = model.Genders;
+            return View(model);
         }
         [HttpPost]
         public ActionResult Create(Student model)

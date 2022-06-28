@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ERP.models;
-using ERP.DB;
+//using ERP.DB;
 
 namespace ERP.DB.DBoperation
 {
@@ -38,7 +38,7 @@ namespace ERP.DB.DBoperation
                         LastName = model.LastName,
                         DOB = model.DOB,
                         GenderId = model.genderid,
-                        StatusId = 1,
+                        StatusId = model.StatusId,
                         //Gender = model.Gender,  
                         ////Status = model.Status,  
                     };
@@ -82,6 +82,20 @@ namespace ERP.DB.DBoperation
             }
 
 
+        }
+
+        public List<models.Status> GetStatuses()
+        {
+            using (var context = new StudentDBEntities1())
+
+            {
+                var status = context.Status.Select(x => new models.Status
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                }).ToList();
+                return status;
+            }
         }
     }
 }
