@@ -25,7 +25,7 @@ namespace CollegeCRUD.Controllers
             //ViewBag.Status = model.Statuss;
             //model.Fname = "Abhishek";
             //ViewBag.gender = model.Genders;
-            return View(model);
+            return PartialView(model);
         }
         [HttpPost]
         public ActionResult Create(Student model)
@@ -37,9 +37,11 @@ namespace CollegeCRUD.Controllers
                 {
                     ModelState.Clear();
                     ViewBag.Success = "Data Added";
+
                 }
             }
-            return View();
+            return RedirectToAction("GetAllRecords");
+            //return View();
         }
 
 
