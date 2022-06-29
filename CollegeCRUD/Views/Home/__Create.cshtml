@@ -1,8 +1,8 @@
 ﻿@model ERP.models.Student
 <div>
     <!--<div class="modal-header">-->
-        @*<h1>HELLO</h1>*@
-        <!--<button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">×</button>
+    @*<h1>HELLO</h1>*@
+    <!--<button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">×</button>
         <h4 class="modal-title" id="myModalLabel">Student Information</h4>
     </div>-->
     <div class="modal-body">
@@ -10,11 +10,10 @@
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
-           <h1>hell</h1>
-            <hr />
+         
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
-                @Html.LabelFor(model => model.Fname, htmlAttributes: new { @class = "control-label col-md-2" })
+                <label>First Name</label>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
@@ -50,7 +49,7 @@
             </div>
             <br />
             <div class="form-group">
-                @Html.DropDownListFor(model => model.StatusId, new SelectList(Model.Statuss, "Id", "Name"))
+                @Html.CheckBoxFor(model => model.isActive) is Active
             </div>
             <br />
 

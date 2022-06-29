@@ -26,7 +26,6 @@ namespace ERP.DB
         }
     
         public virtual DbSet<Gender> Genders { get; set; }
-        public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<StudentDetail> StudentDetails { get; set; }
     }
 }

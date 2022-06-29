@@ -38,7 +38,7 @@ namespace ERP.DB.DBoperation
                         LastName = model.LastName,
                         DOB = model.DOB,
                         GenderId = model.genderid,
-                        StatusId = model.StatusId,
+                         isActive = model.isActive,
                         //Gender = model.Gender,  
                         ////Status = model.Status,  
                     };
@@ -84,19 +84,7 @@ namespace ERP.DB.DBoperation
 
         }
 
-        public List<models.Status> GetStatuses()
-        {
-            using (var context = new StudentDBEntities1())
-
-            {
-                var status = context.Status.Select(x => new models.Status
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                }).ToList();
-                return status;
-            }
-        }
+ 
 
         public List<Student> GetAllStudents()
         {
@@ -114,15 +102,57 @@ namespace ERP.DB.DBoperation
                     {
                         Name = x.Gender.Name,
                     },
-                    status = new models.Status()
-                    {
-                        Name = x.Status.Name
-                    }
+                 isActive = x.isActive
 
                 }
                 ).DefaultIfEmpty().ToList();
                 return res;
             }
+        }
+
+        public Student GetStudent(int id)
+        {
+            using (var context = new StudentDBEntities1())
+
+            {
+                var result = context.StudentDetails.Where(x => x.Id == id).Select(x => new Student()
+                {
+                    Id = x.Id,
+                    Fname = x.Fname,
+                    LastName = x.LastName,
+                    MiddleName = x.MiddleName,
+                    DOB = (DateTime)x.DOB,
+                    genderid = x.GenderId,
+                    isActive = x.isActive
+                }).FirstOrDefault();
+                return result;
+            }
+        }
+
+  
+
+
+        public bool updateStudent(int id, Student student)
+        {
+            using (var context = new StudentDBEntities1())
+            {
+                var stud = context.StudentDetails.FirstOrDefault(x => x.Id == id);
+                    if (stud != null)
+                {
+                    stud.Fname = student.Fname;
+                    stud.LastName = student.LastName;
+                  stud.MiddleName = student.MiddleName;
+                    stud.DOB = student.DOB;
+                    stud.GenderId = student.genderid;
+                    stud.isActive = student.isActive;
+
+                }
+                context.SaveChanges();
+
+            return true;
+               
+            }
+
         }
     }
 }

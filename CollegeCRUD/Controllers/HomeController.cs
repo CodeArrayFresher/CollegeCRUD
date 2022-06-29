@@ -17,18 +17,18 @@ namespace CollegeCRUD.Controllers
         }
         // GET: Home
 
-        public ActionResult Create()
+        public ActionResult __Create()
         {
             var model = new Student();
             model.Genders = repository.GetGenders();
-            model.Statuss = repository.GetStatuses();
+
             //ViewBag.Status = model.Statuss;
             //model.Fname = "Abhishek";
             //ViewBag.gender = model.Genders;
             return PartialView(model);
         }
         [HttpPost]
-        public ActionResult Create(Student model)
+        public ActionResult __Create(Student model)
         {
             if (ModelState.IsValid)
             {
@@ -44,6 +44,29 @@ namespace CollegeCRUD.Controllers
             //return View();
         }
 
+
+
+        public ActionResult __Update(int id)
+        {
+            var student = repository.GetStudent(id);
+            student.Genders = repository.GetGenders();
+            
+            return PartialView(student);
+
+        }
+
+
+        [HttpPost]
+        public ActionResult __Update(Student student)
+        {
+            if (ModelState.IsValid)
+            {
+                repository.updateStudent(student.Id, student);
+                return RedirectToAction("GetAllRecords");
+            }
+            return View(student);
+            //return PartialView();   
+        }
 
 
 

@@ -32,7 +32,7 @@
             @Html.DisplayNameFor(model => model.gender)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.status)
+            <h5>Status</h5>
         </th>
         <th></th>
     </tr>
@@ -41,7 +41,7 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Fname)
+                <a class="anchor-detail" onclick="updateData(@item.Id)">@Html.DisplayFor(modelItem => item.Fname)</a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.MiddleName)
@@ -56,8 +56,15 @@
                 @Html.DisplayFor(modelItem => item.gender.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.status.Name)
-            </td>
+                @if (item.isActive)
+                {
+                    <h5> Active </h5>
+                }
+                else
+                {
+                    <h5> InActive </h5>
+                }
+                    </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
@@ -69,10 +76,30 @@
 </table>
 
 
-}
-<div id='myModal' class='modal'>
+<div id='UpdateModal' class='modal'>
+
     <div class="modal-dialog">
         <div class="modal-content">
+            <div class="modal-header">
+
+                <h3 class="modal-title" id="myModalLabel">Update Student</h3>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div id='UpdateModalContent'></div>
+        </div>
+    </div>
+
+</div>
+
+<div id='myModal' class='modal'>
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h3 class="modal-title" id="myModalLabel">Add Student</h3>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">×</button>
+            </div>
             <div id='myModalContent'></div>
         </div>
     </div>
@@ -81,27 +108,63 @@
 <script src="~/Scripts/jquery-3.6.0.min.js"></script>
 <script src="~/Scripts/bootstrap.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
-    
+
 <script>
     function GetData() {
         $.ajax({
             type: "GET",
-            url: "/Home/Create",
-            
+
+            url: "/Home/__Create",
+
             success: function (data) {
                 debugger;
                 $('#myModalContent').html(data);
                 //$('#myModal').modal(options);
+                $('#myModal').fadeIn(800);
                 $('#myModal').modal('show');
+
             },
             error: function () {
                 alert("Dynamic content load failed.");
             },
         });
     }
-    
+
+
     $('.close').click(function () {
         console.log('hello');
         $("#myModal").modal('hide');
+
     });
+
+
+    function updateData(id) {
+        $.ajax({
+            type: "GET",
+            url: "/Home/__Update",
+            data: { "Id": id },
+            success: function (data) {
+                debugger;
+                $('#UpdateModalContent').html(data);
+                //$('#myModal').modal(options);
+                $('#UpdateModal').fadeIn(800);
+                $('#UpdateModal').modal('show');
+
+            },
+            error: function () {
+                alert("Dynamic content load failed.");
+            },
+        });
+    }
+
+    //$('.close').click(function () {
+    //    console.log('hello');
+    //    $("#myModal").modal('hide');
+
+    //});
+
+
+
+
+
 </script>

@@ -20,9 +20,8 @@ namespace ERP.DB
         public string LastName { get; set; }
         public Nullable<System.DateTime> DOB { get; set; }
         public int GenderId { get; set; }
-        public int StatusId { get; set; }
+        public bool isActive { get; set; }
     
         public virtual Gender Gender { get; set; }
-        public virtual Status Status { get; set; }
     }
 }

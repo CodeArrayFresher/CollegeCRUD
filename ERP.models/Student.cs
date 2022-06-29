@@ -27,13 +27,13 @@ namespace ERP.models
 
        public Gender gender { get; set; }
 
-        public int StatusId { get; set; }
+        //public bool StatusId { get; set; }
 
-        public Status status { get; set; }
+        public bool isActive { get; set; }
         //public string Status { get; set; }
         public List<Gender> Genders { get; set; }
         
-        public List<Status> Statuss { get; set; }
+        //public List<Status> Statuss { get; set; }
         //public gender gender { get; set; }
     }
 }
