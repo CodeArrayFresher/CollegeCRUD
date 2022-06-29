@@ -23,6 +23,7 @@
           <Property Name="DOB" Type="datetime" />
           <Property Name="GenderId" Type="int" Nullable="false" />
           <Property Name="isActive" Type="bit" Nullable="false" />
+          <Property Name="isDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_StudentDetails_Gender">
           <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
@@ -75,6 +76,7 @@
           <Property Name="DOB" Type="DateTime" Precision="3" />
           <Property Name="GenderId" Type="Int32" Nullable="false" />
           <Property Name="isActive" Type="Boolean" Nullable="false" />
+          <Property Name="isDeleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Gender" Relationship="StudentDBModel.FK_StudentDetails_Gender" FromRole="StudentDetail" ToRole="Gender" />
         </EntityType>
         <Association Name="FK_StudentDetails_Gender">
@@ -106,6 +108,7 @@
           <EntitySetMapping Name="StudentDetails">
             <EntityTypeMapping TypeName="StudentDBModel.StudentDetail">
               <MappingFragment StoreEntitySet="StudentDetails">
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
                 <ScalarProperty Name="isActive" ColumnName="isActive" />
                 <ScalarProperty Name="GenderId" ColumnName="GenderId" />
                 <ScalarProperty Name="DOB" ColumnName="DOB" />

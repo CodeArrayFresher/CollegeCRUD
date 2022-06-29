@@ -68,7 +68,11 @@ namespace CollegeCRUD.Controllers
             //return PartialView();   
         }
 
-
+            public ActionResult Delete(int id)
+        {
+            repository.DeleteStudent(id);
+            return RedirectToAction("GetAllRecords");
+        }
 
         public ActionResult GetAllRecords()
         {

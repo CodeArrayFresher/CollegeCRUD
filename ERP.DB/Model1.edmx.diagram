@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="ca3acaf154374cec91644141be91f5fc" Name="Diagram1">
-        <EntityTypeShape EntityType="StudentDBModel.Gender" Width="1.5" PointX="0.75" PointY="1.375" />
+        <EntityTypeShape EntityType="StudentDBModel.Gender" Width="1.5" PointX="0.75" PointY="1.5" />
         <EntityTypeShape EntityType="StudentDBModel.StudentDetail" Width="1.5" PointX="3" PointY="1" />
         <AssociationConnector Association="StudentDBModel.FK_StudentDetails_Gender" />
       </Diagram>

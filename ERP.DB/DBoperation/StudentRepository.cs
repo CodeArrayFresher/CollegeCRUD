@@ -91,7 +91,7 @@ namespace ERP.DB.DBoperation
             using (var context = new StudentDBEntities1())
 
             {
-                var res = context.StudentDetails.Select(x => new Student()
+                var res = context.StudentDetails.Where(x=>x.isDeleted == false).Select(x => new Student()
                 {
                     Id = x.Id,
                     Fname = x.Fname,
@@ -153,6 +153,18 @@ namespace ERP.DB.DBoperation
                
             }
 
+        }
+
+        public bool DeleteStudent(int id)
+        {
+            using (var context = new StudentDBEntities1())
+            {
+                var del = context.StudentDetails.Where(x => x.isDeleted == false && x.Id == id).FirstOrDefault();
+                del.isDeleted = true;
+                context.SaveChanges();
+                return true;
+
+            }
         }
     }
 }

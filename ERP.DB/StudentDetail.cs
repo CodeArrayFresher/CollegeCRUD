@@ -21,6 +21,7 @@ namespace ERP.DB
         public Nullable<System.DateTime> DOB { get; set; }
         public int GenderId { get; set; }
         public bool isActive { get; set; }
+        public bool isDeleted { get; set; }
     
         public virtual Gender Gender { get; set; }
     }
