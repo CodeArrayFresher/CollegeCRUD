@@ -169,19 +169,14 @@
         console.log(res);
         })
         $.ajax({
-            type: "GET",
-            data: {"multidelete": res},
+            type: "post",
             url: "/Home/MultipleDelete",
-
-            success: function (data) {
-                //alert("")
-
-            },
-            error: function () {
-                alert("Dynamic content load failed.");
-            },
+            data: { 'multidelete': res },
+            success:
+                alert("DONEE")
+            })
         });
-    })
+    
 
     function GetData() {
         $.ajax({

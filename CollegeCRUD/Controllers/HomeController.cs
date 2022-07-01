@@ -78,10 +78,10 @@ namespace CollegeCRUD.Controllers
 
             return RedirectToAction("GetAllRecords");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
 
         }
