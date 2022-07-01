@@ -130,7 +130,20 @@ namespace ERP.DB.DBoperation
         }
 
   
+        public bool MultipleDelete(int[] id)
+        {
+            using (var context = new StudentDBEntities1())
+            {
+               var del =  context.StudentDetails.Where(x => id.Contains(x.Id)).ToList();
 
+                foreach (var item in del)
+                {
+                    item.isDeleted = true;
+                }
+                context.SaveChanges();
+                return true;
+            }
+        }
 
         public bool updateStudent(int id, Student student)
         {

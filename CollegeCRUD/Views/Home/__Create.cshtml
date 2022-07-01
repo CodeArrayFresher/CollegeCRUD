@@ -1,10 +1,23 @@
 ﻿@model ERP.models.Student
+
+<style>
+    form {
+        padding-left:3rem;
+
+    }
+    label{
+        display: block;
+        font-weight: bold;
+    }
+</style>
 <div>
     <!--<div class="modal-header">-->
     @*<h1>HELLO</h1>*@
     <!--<button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">×</button>
         <h4 class="modal-title" id="myModalLabel">Student Information</h4>
     </div>-->
+
+
     <div class="modal-body">
 
         @using (Html.BeginForm())
@@ -39,17 +52,19 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.DOB, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control"} })
                     @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
                 </div>
             </div>
             <br />
             <div class="form-group">
+                <label>Gender</label>
                 @Html.DropDownListFor(model => model.genderid, new SelectList(Model.Genders, "id", "Name"))
             </div>
             <br />
             <div class="form-group">
-                @Html.CheckBoxFor(model => model.isActive) is Active
+                <label style="display:inline;">IsActive</label>
+                @Html.CheckBoxFor(model => model.isActive) 
             </div>
             <br />
 

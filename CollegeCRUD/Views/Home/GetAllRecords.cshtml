@@ -1,79 +1,116 @@
 ﻿@model IEnumerable<ERP.models.Student>
 
 @{
-    ViewBag.Title = "GetAllRecords";
+//ViewBag.Title = "GetAllRecords";
 }
-@*<style>
-        #f2 {
-            color: red;
-        }
-    </style>*@
-<h2>GetAllRecords</h2>
-
-
-<p>
-    <button type="button" class="btn btn-primary" onclick="GetData()">Create</button>
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Fname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MiddleName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DOB)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.gender)
-        </th>
-        <th>
-            <h5>Status</h5>
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                <a class="anchor-detail" onclick="updateData(@item.Id)">@Html.DisplayFor(modelItem => item.Fname)</a>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MiddleName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DOB)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.gender.Name)
-            </td>
-            <td>
-                @if (item.isActive)
-                {
-                    <h5> Active </h5>
-                }
-                else
-                {
-                    <h5> InActive </h5>
-                }
-                    </td>
-            <td>
-               
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-        </tr>
+<style>
+    .table {
+        table-layout: auto;
     }
 
-</table>
+        .table td, .table th {
+            /*white-space: nowrap;*/
+       text-align:center;
+        }
 
+        .table thead th:last-child {
+            width: 100%;
+        }
+        h2{
+            text-align:center;
+            padding: 1rem;
+            color: black;
+            text-shadow: 1px 1px 1px black;
+        }
+        h3{
+            padding-left: 10rem;
+        }
+        h1{
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+       
+    </style>
+
+
+<div id=" landingpage" style="padding:0.6rem">
+    <h2>Student Details</h2>
+    <p>
+        <button type="button" class="btn btn-outline-success" onclick="GetData()">Create</button>
+        <button type="button" id="btnsubmit">Delete All</button>
+    </p>
+
+    <table class="table table-bordered table-striped table-dark table-hover">
+        <tr>
+            <th>
+                First Name
+            </th>
+            <th>
+                Middle Name
+            </th>
+            <th>
+                Last Name
+            </th>
+            <th>
+                Date Of Birth
+            </th>
+            <th>
+                Gender
+            </th>
+            <th>
+                Status
+            </th>
+            <th>Delete</th>
+            <th>
+                Select
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr class="row-select">
+          
+                    <input type="hidden" name="name" class="check" value="@item.Id"/>
+              
+                <td>
+                    <a class="anchor-detail text-capitalize" onclick="updateData(@item.Id)">@Html.DisplayFor(modelItem => item.Fname)</a>
+                </td>
+                <td class="text-capitalize">
+                    @Html.DisplayFor(modelItem => item.MiddleName)
+                </td>
+                <td class="text-capitalize">
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DOB)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.gender.Name)
+                </td>
+                <td>
+                    @if (item.isActive)
+                    {
+                        <p class="text-success  ">Active</p>
+                        @*<h5> Active </h5>*@
+                    }
+                    else
+                    {
+                        <p class="text-danger">InActive</p>
+                    }
+                </td>
+                <td>
+
+                    <button class="btn btn-outline-danger">@Html.ActionLink("Delete", "Delete", new { id = item.Id })</button>
+                </td>
+                <td >
+                    <input type="checkbox"  name="studentIdtoDelete" class="studentIdtoDeletes" value="@item.Id"/>
+                </td>
+            </tr>
+        }
+
+    </table>
+    
+</div>
 
 <div id='UpdateModal' class='modal'>
 
@@ -82,7 +119,7 @@
             <div class="modal-header">
 
                 <h3 class="modal-title" id="myModalLabel">Update Student</h3>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">×</button>
+                <button type="button" class="close btn btn-danger" data-bs-dismiss="modal" aria-hidden="true">×</button>
             </div>
             <div id='UpdateModalContent'></div>
         </div>
@@ -97,7 +134,7 @@
             <div class="modal-header">
 
                 <h3 class="modal-title" id="myModalLabel">Add Student</h3>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">×</button>
+                <button type="button" class="close btn btn-danger" data-bs-dismiss="modal" aria-hidden="true">X</button>
             </div>
             <div id='myModalContent'></div>
         </div>
@@ -109,6 +146,43 @@
 <script src="~/Scripts/bootstrap.min.js"></script>
 
 <script>
+    //function multipleDelete() {
+    //    var res = new Array();
+
+    //    //var chkvalue = $('.studentIdtoDeletes:checked');
+
+    //    ////console.log(chkvalue);
+    //    //if (chkvalue.checked) {
+    //    //    var x = document.getElementById("#hiddenval").value;
+    //    //    console.log(x);
+
+    //    }
+    //}
+    
+    $("#btnsubmit").click(function () {
+        debugger;
+            var res = new Array();
+        $('.row-select input:checked').each(function () {
+            var id;
+            id = $(this).closest('tr').find('.check').val();
+            res.push(id);
+        console.log(res);
+        })
+        $.ajax({
+            type: "GET",
+            data: {"multidelete": res},
+            url: "/Home/MultipleDelete",
+
+            success: function (data) {
+                //alert("")
+
+            },
+            error: function () {
+                alert("Dynamic content load failed.");
+            },
+        });
+    })
+
     function GetData() {
         $.ajax({
             type: "GET",
@@ -132,8 +206,11 @@
 
     $('.close').click(function () {
         console.log('hello');
-        $("#myModal").modal('hide');
-
+        //$("#myModal").delay(1000).fadeOut('slow');
+        $("#mymodal").modal('hide');
+        //setTimeout(function () {
+        //    $('#myModal').modal("hide");
+        //}, 1500);
     });
 
 
@@ -147,8 +224,7 @@
                 $('#UpdateModalContent').html(data);
                 //$('#myModal').modal(options);
                 $('#UpdateModal').fadeIn(800);
-                $('#UpdateModal').modal('show');
-
+                $('#UpdateModal').modal('show'); 
             },
             error: function () {
                 alert("Dynamic content load failed.");

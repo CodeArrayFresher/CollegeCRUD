@@ -1,4 +1,17 @@
 ﻿    @model ERP.models.Student
+
+<style>
+   
+        form
+
+    {
+        padding-left: 2rem;
+    }
+    label{
+        font-weight:bold;
+        padding:0.2rem;
+    }
+</style>
 <div class="modal-body">
 
     @using (Html.BeginForm())
@@ -6,13 +19,12 @@
         @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Student</h4>
-        <hr />
+      
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Fname, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label>First Name</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
@@ -20,7 +32,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.MiddleName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label>Middle Name</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.MiddleName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })
@@ -28,44 +40,49 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label>Last Name</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
             </div>
         </div>
 
-       
         <div class="form-group">
             @Html.LabelFor(model => model.DOB, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control", @value = Model.DOB.ToShortDateString()} })
-                @*@Html.TextBoxFor(x => x.DOB, new { @class = "form-control inputdate", @style = "border-radius:4px; z-index: 10000;  padding-top:10px ;padding-bottom:10px;", @placeholder = "Commencement Date", , @id = "CommencementDate", oninvalid = "this.setCustomValidity('Commencement Date is invalid')", oninput = "setCustomValidity('')" })*@
-                @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.DOB, new
+                {
+                    htmlAttributes = new
+                    {
+                        @class = "form-control datepicker",
+                       @Value = Model.DOB != null ?
+    Model.DOB.Date.ToString("yyyy-MM-dd") : null
+                   }
+                   })
             </div>
         </div>
+       
+     
 
         <br />
         <div class="form-group">
+            <Label style="display:block;">Gender</Label>
             @Html.DropDownListFor(model => model.genderid, new SelectList(Model.Genders, "id", "Name"))
         </div>
         <br />
         <div class="form-group">
-            @Html.CheckBoxFor(model => model.isActive)
+            <Label>Is Active</Label>
+         @Html.CheckBoxFor(model => model.isActive ,new {@id = "checkbox4"}) </div>
             @*@Html.DropDownListFor(model => model.StatusId, new SelectList(Model.Statuss, "Id", "Name"))*@
         </div>
         <br />
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-outline-success" />
             </div>
         </div>
-    </div>
-    }
 
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
+    }
 
 </div>

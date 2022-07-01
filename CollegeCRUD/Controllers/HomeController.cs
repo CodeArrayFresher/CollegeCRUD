@@ -8,6 +8,8 @@ using ERP.models;
 
 namespace CollegeCRUD.Controllers
 {
+    //[RoutePrefix("Home")]
+    //[Route("action = getallrecords")]
     public class HomeController : Controller
     {
         StudentRepository repository = null;
@@ -25,7 +27,7 @@ namespace CollegeCRUD.Controllers
             //ViewBag.Status = model.Statuss;
             //model.Fname = "Abhishek";
             //ViewBag.gender = model.Genders;
-            return PartialView(model);
+            return PartialView("__Create",model);
         }
         [HttpPost]
         public ActionResult __Create(Student model)
@@ -51,7 +53,7 @@ namespace CollegeCRUD.Controllers
             var student = repository.GetStudent(id);
             student.Genders = repository.GetGenders();
             
-            return PartialView(student);
+            return PartialView("__Update",student);
 
         }
 
@@ -68,11 +70,32 @@ namespace CollegeCRUD.Controllers
             //return PartialView();   
         }
 
-            public ActionResult Delete(int id)
+        public ActionResult MultipleDelete(int[] multidelete)
+        {
+            try
+            {
+            repository.MultipleDelete(multidelete);
+
+            return RedirectToAction("GetAllRecords");
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        public ActionResult Delete(int id)
         {
             repository.DeleteStudent(id);
             return RedirectToAction("GetAllRecords");
         }
+
+        //[Route("GetAllRecords")]
+
+       
+
 
         public ActionResult GetAllRecords()
         {
