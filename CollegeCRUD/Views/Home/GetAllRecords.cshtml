@@ -37,9 +37,16 @@
     <h2>Student Details</h2>
     <p>
         <button type="button" class="btn btn-outline-success" onclick="GetData()">Create</button>
-        <button type="button" id="btnsubmit">Delete All</button>
+        <button type="button" id="btnsubmit" class="btn btn-danger">Delete All</button>
     </p>
-
+    <p>
+        @using (Html.BeginForm("Search", "Home", FormMethod.Get))
+        {
+            <b> Search by</b> @Html.RadioButton("searchby", "Name", true)<b> Name</b>
+            @Html.RadioButton("searchby", "LastName") <b> Last Name</b><br />
+            @Html.TextBox("search") <input type="submit" value=" Search" />
+        }
+    </p>
     <table class="table table-bordered table-striped table-dark table-hover">
         <tr>
             <th>
@@ -63,53 +70,63 @@
             <th>Delete</th>
             <th>
                 Select
+                <input type="checkbox" id="checkboxall" />
             </th>
         </tr>
-
-        @foreach (var item in Model)
+        @if (Model.Count() > 0)
         {
-            <tr class="row-select">
-          
-                    <input type="hidden" name="name" class="check" value="@item.Id"/>
-              
-                <td>
-                    <a class="anchor-detail text-capitalize" onclick="updateData(@item.Id)">@Html.DisplayFor(modelItem => item.Fname)</a>
-                </td>
-                <td class="text-capitalize">
-                    @Html.DisplayFor(modelItem => item.MiddleName)
-                </td>
-                <td class="text-capitalize">
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DOB)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.gender.Name)
-                </td>
-                <td>
-                    @if (item.isActive)
-                    {
-                        <p class="text-success  ">Active</p>
-                        @*<h5> Active </h5>*@
-                    }
-                    else
-                    {
-                        <p class="text-danger">InActive</p>
-                    }
-                </td>
-                <td>
 
-                    <button class="btn btn-outline-danger">@Html.ActionLink("Delete", "Delete", new { id = item.Id })</button>
-                </td>
-                <td >
-                    <input type="checkbox"  name="studentIdtoDelete" class="studentIdtoDeletes" value="@item.Id"/>
-                </td>
+            foreach (var item in Model)
+            {
+                <tr class="row-select">
+
+                    <input type="hidden" name="name" class="check" value="@item.Id" />
+
+                    <td>
+                        <a class="anchor-detail text-capitalize" onclick="updateData(@item.Id)">@Html.DisplayFor(modelItem => item.Fname)</a>
+                    </td>
+                    <td class="text-capitalize">
+                        @Html.DisplayFor(modelItem => item.MiddleName)
+                    </td>
+                    <td class="text-capitalize">
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DOB)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.gender.Name)
+                    </td>
+                    <td>
+                        @if (item.isActive)
+                        {
+                            <p class="text-success  ">Active</p>
+                            @*<h5> Active </h5>*@
+                        }
+                        else
+                        {
+                            <p class="text-danger">InActive</p>
+                        }
+                    </td>
+                    <td>
+
+                        <button class="btn btn-outline-danger">@Html.ActionLink("Delete", "Delete", new { id = item.Id })</button>
+                    </td>
+                    <td>
+                        <input type="checkbox" name="studentIdtoDelete" class="studentIdtoDeletes" value="@item.Id" />
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="8">RECORD NOT FOUND</td>
             </tr>
         }
 
     </table>
-    
+
 </div>
 
 <div id='UpdateModal' class='modal'>
@@ -144,6 +161,7 @@
 <script src="~/Scripts/jquery-3.6.0.min.js"></script>
 <script src="~/Scripts/bootstrap.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script>
     //function multipleDelete() {
@@ -158,7 +176,21 @@
 
     //    }
     //}
-    
+
+     $(document).ready(function() {
+       if ('@TempData["success"]' != '') {
+           swal("Created","Data added successfully","success");
+       }
+     });
+
+     $(document).ready(function() {
+       if ('@TempData["dataDeleted"]' != '') {
+           swal("Deleted!","Data Deleted","success");
+       }
+  });
+
+
+
     $("#btnsubmit").click(function () {
         debugger;
         var res = new Array();
@@ -173,7 +205,7 @@
             url: "/Home/MultipleDelete",
             data: { 'multidelete': res },
             success: function (data) {
-                alert("DONEE");
+                alert("RECORD DELETED SUCCESSFULLY");
                 window.location.href = '/home/getallrecords/'
             },
             error: function () {
@@ -181,10 +213,24 @@
             },
         }
         )
-    
+
 
         });
-    
+
+
+
+    $(document).ready(function () {
+        $('#checkboxall').click(function () {
+            if ($(this).is(":checked"))
+                $('.studentIdtoDeletes').prop('checked', true);
+            else
+                $('.studentIdtoDeletes').prop('checked', false);
+        });
+
+
+    });
+
+
 
     function GetData() {
         $.ajax({
@@ -227,7 +273,7 @@
                 $('#UpdateModalContent').html(data);
                 //$('#myModal').modal(options);
                 $('#UpdateModal').fadeIn(800);
-                $('#UpdateModal').modal('show'); 
+                $('#UpdateModal').modal('show');
             },
             error: function () {
                 alert("Dynamic content load failed.");

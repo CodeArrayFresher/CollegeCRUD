@@ -18,17 +18,7 @@ namespace ERP.DB.DBoperation
                 using (var context = new StudentDBEntities1())
                 {
 
-                    
-
-                    //var student = context.StudentDetails.Where(x => x.Id == 1).Select(x => new models.Student
-                    //{
-                    //    Id= x.Id,
-                    //    Fname = x.Fname,
-                    //    Gender = new models.Gender { 
-                    //           Name = x.Gender.Name 
-                    //    }
-                    //}).FirstOrDefault();
-
+          
 
 
                     StudentDetail stud = new StudentDetail()
@@ -84,7 +74,55 @@ namespace ERP.DB.DBoperation
 
         }
 
- 
+        public List<Student> SearchStudent(string Searchby, string search)
+        {
+            var res = new List<Student>();
+            using (var context = new StudentDBEntities1())
+            {
+                if (Searchby == "LastName")
+                {
+                   res = context.StudentDetails.Where(x => x.LastName.Contains(search)).Select(x => new Student()
+                    {
+                        Id = x.Id,
+                        Fname = x.Fname,
+                        MiddleName = x.MiddleName,
+                        LastName = x.LastName,
+                        DOB = (DateTime)x.DOB,
+                        gender = new models.Gender()
+                        {
+                            Name = x.Gender.Name,
+                        },
+                        isActive = x.isActive
+
+                    }
+                ).ToList(); 
+                    
+                }
+                else
+                {
+                    if (Searchby == "Name")
+                    {
+                         res = context.StudentDetails.Where(x => x.Fname.Contains(search)).Select(x => new Student()
+                        {
+                            Id = x.Id,
+                            Fname = x.Fname,
+                            MiddleName = x.MiddleName,
+                            LastName = x.LastName,
+                            DOB = (DateTime)x.DOB,
+                            gender = new models.Gender()
+                            {
+                                Name = x.Gender.Name,
+                            },
+                            isActive = x.isActive
+
+                        }
+                    ).ToList();
+                        
+                    }
+                }
+                return res;
+            }
+        }
 
         public List<Student> GetAllStudents()
         {

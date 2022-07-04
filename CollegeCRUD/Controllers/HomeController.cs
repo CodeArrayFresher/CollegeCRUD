@@ -39,7 +39,7 @@ namespace CollegeCRUD.Controllers
                 {
                     ModelState.Clear();
                     ViewBag.Success = "Data Added";
-
+                    TempData["success"] = "data added";
                 }
             }
             return RedirectToAction("GetAllRecords");
@@ -89,13 +89,18 @@ namespace CollegeCRUD.Controllers
         public ActionResult Delete(int id)
         {
             repository.DeleteStudent(id);
+            TempData["dataDeleted"] = "data deleted";
             return RedirectToAction("GetAllRecords");
         }
 
         //[Route("GetAllRecords")]
 
        
-
+        public ActionResult Search(string searchby, string Search)
+        {
+            var result = repository.SearchStudent(searchby, Search);
+            return View("GetAllRecords",result);  
+        }
 
         public ActionResult GetAllRecords()
         {
