@@ -161,20 +161,28 @@
     
     $("#btnsubmit").click(function () {
         debugger;
-            var res = new Array();
+        var res = new Array();
         $('.row-select input:checked').each(function () {
             var id;
             id = $(this).closest('tr').find('.check').val();
             res.push(id);
-        console.log(res);
-        })
+            console.log(res);
+        });
         $.ajax({
             type: "post",
             url: "/Home/MultipleDelete",
             data: { 'multidelete': res },
-            success:
-                alert("DONEE")
-            })
+            success: function (data) {
+                alert("DONEE");
+                window.location.href = '/home/getallrecords/'
+            },
+            error: function () {
+                alert("Dynamic content load failed");
+            },
+        }
+        )
+    
+
         });
     
 
