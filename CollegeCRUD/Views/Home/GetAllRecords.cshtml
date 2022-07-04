@@ -1,36 +1,52 @@
 ﻿@model IEnumerable<ERP.models.Student>
 
 @{
-//ViewBag.Title = "GetAllRecords";
+    //ViewBag.Title = "GetAllRecords";
 }
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
 <style>
+    sorting_asc
+    {
+        width:100px;
+    }
     .table {
         table-layout: auto;
     }
+    table.dataTable th {
+        white-space: nowrap;
+    }
+
+    table.dataTable td {
+        white-space: nowrap;
+    }  
+
 
         .table td, .table th {
             /*white-space: nowrap;*/
-       text-align:center;
+            text-align: center;
         }
 
         .table thead th:last-child {
             width: 100%;
         }
-        h2{
-            text-align:center;
-            padding: 1rem;
-            color: black;
-            text-shadow: 1px 1px 1px black;
-        }
-        h3{
-            padding-left: 10rem;
-        }
-        h1{
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-       
-    </style>
+
+    h2 {
+        text-align: center;
+        padding: 1rem;
+        color: black;
+        text-shadow: 1px 1px 1px black;
+    }
+
+    h3 {
+        padding-left: 10rem;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+</style>
 
 
 <div id=" landingpage" style="padding:0.6rem">
@@ -39,92 +55,95 @@
         <button type="button" class="btn btn-outline-success" onclick="GetData()">Create</button>
         <button type="button" id="btnsubmit" class="btn btn-danger">Delete All</button>
     </p>
-    <p>
+    @*<p>
         @using (Html.BeginForm("Search", "Home", FormMethod.Get))
         {
             <b> Search by</b> @Html.RadioButton("searchby", "Name", true)<b> Name</b>
             @Html.RadioButton("searchby", "LastName") <b> Last Name</b><br />
             @Html.TextBox("search") <input type="submit" value=" Search" />
         }
-    </p>
-    <table class="table table-bordered table-striped table-dark table-hover">
-        <tr>
-            <th>
-                First Name
-            </th>
-            <th>
-                Middle Name
-            </th>
-            <th>
-                Last Name
-            </th>
-            <th>
-                Date Of Birth
-            </th>
-            <th>
-                Gender
-            </th>
-            <th>
-                Status
-            </th>
-            <th>Delete</th>
-            <th>
-                Select
-                <input type="checkbox" id="checkboxall" />
-            </th>
-        </tr>
-        @if (Model.Count() > 0)
-        {
-
-            foreach (var item in Model)
+    </p>*@
+    <table class="table table-bordered table-striped table-dark table-hover" id="students">
+        <thead>
+            <tr>
+                <th>
+                    First Name
+                </th>
+                <th>
+                    Middle Name
+                </th>
+                <th>
+                    Last Name
+                </th>
+                <th>
+                    Date Of Birth
+                </th>
+                <th>
+                    Gender
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>Delete</th>
+                <th>
+                    Select
+                    <input type="checkbox" id="checkboxall" />
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count() > 0)
             {
-                <tr class="row-select">
 
-                    <input type="hidden" name="name" class="check" value="@item.Id" />
+                foreach (var item in Model)
+                {
+                    <tr class="row-select">
 
-                    <td>
-                        <a class="anchor-detail text-capitalize" onclick="updateData(@item.Id)">@Html.DisplayFor(modelItem => item.Fname)</a>
-                    </td>
-                    <td class="text-capitalize">
-                        @Html.DisplayFor(modelItem => item.MiddleName)
-                    </td>
-                    <td class="text-capitalize">
-                        @Html.DisplayFor(modelItem => item.LastName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DOB)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.gender.Name)
-                    </td>
-                    <td>
-                        @if (item.isActive)
-                        {
-                            <p class="text-success  ">Active</p>
-                            @*<h5> Active </h5>*@
-                        }
-                        else
-                        {
-                            <p class="text-danger">InActive</p>
-                        }
-                    </td>
-                    <td>
+                        <input type="hidden" name="name" class="check" value="@item.Id" />
 
-                        <button class="btn btn-outline-danger">@Html.ActionLink("Delete", "Delete", new { id = item.Id })</button>
-                    </td>
-                    <td>
-                        <input type="checkbox" name="studentIdtoDelete" class="studentIdtoDeletes" value="@item.Id" />
-                    </td>
+                        <td>
+                            <a class="anchor-detail text-capitalize" onclick="updateData(@item.Id)">@Html.DisplayFor(modelItem => item.Fname)</a>
+                        </td>
+                        <td class="text-capitalize">
+                            @Html.DisplayFor(modelItem => item.MiddleName)
+                        </td>
+                        <td class="text-capitalize">
+                            @Html.DisplayFor(modelItem => item.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DOB)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.gender.Name)
+                        </td>
+                        <td>
+                            @if (item.isActive)
+                            {
+                                <p class="text-success  ">Active</p>
+                                @*<h5> Active </h5>*@
+                            }
+                            else
+                            {
+                                <p class="text-danger">InActive</p>
+                            }
+                        </td>
+                        <td>
+
+                            <button class="btn btn-outline-danger">@Html.ActionLink("Delete", "Delete", new { id = item.Id })</button>
+                        </td>
+                        <td>
+                            <input type="checkbox" name="studentIdtoDelete" class="studentIdtoDeletes" value="@item.Id" />
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="8">RECORD NOT FOUND</td>
                 </tr>
             }
-        }
-        else
-        {
-            <tr>
-                <td colspan="8">RECORD NOT FOUND</td>
-            </tr>
-        }
-
+        </tbody>
     </table>
 
 </div>
@@ -162,8 +181,26 @@
 <script src="~/Scripts/bootstrap.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
 
 <script>
+
+    $(document).ready(function () {
+
+        $("#students").DataTable({
+            "pagingType": 'full_numbers',
+            "bJQueryUI": true,
+            "ordering": true,
+            "bSort": false,
+            "bPaginate": true,
+            "sPaginationType": "full_numbers",
+            "iDisplayLength": 6
+        });
+ 
+        $('#students').removeClass('display').addClass('table table-striped table-bordered');
+    });
     //function multipleDelete() {
     //    var res = new Array();
 
@@ -201,12 +238,19 @@
             console.log(res);
         });
         $.ajax({
+
             type: "post",
             url: "/Home/MultipleDelete",
             data: { 'multidelete': res },
-            success: function (data) {
-                alert("RECORD DELETED SUCCESSFULLY");
-                window.location.href = '/home/getallrecords/'
+            success: function (x) {
+                if (x) {
+
+                    alert("RECORD DELETED SUCCESSFULLY");
+                    window.location.href = '/home/getallrecords/'
+                }
+                else {
+                    alert("select data to delete");
+                }
             },
             error: function () {
                 alert("Dynamic content load failed");

@@ -70,13 +70,13 @@ namespace CollegeCRUD.Controllers
             //return PartialView();   
         }
 
-        public ActionResult MultipleDelete(int[] multidelete)
+        public bool MultipleDelete(int[] multidelete)
         {
             try
             {
-            repository.MultipleDelete(multidelete);
+          var x =  repository.MultipleDelete(multidelete);
 
-            return RedirectToAction("GetAllRecords");
+                return x;
             }
             catch (Exception ex)
             {
